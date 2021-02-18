@@ -1,0 +1,8 @@
+select * from
+(select name, grade, marks from students , grades 
+where marks >= min_mark and marks <= max_mark) where grade >= 8
+order by grade desc, name asc;
+select * from
+(select 'NULL', grade, marks from students , grades 
+where marks >= min_mark and marks <= max_mark) where grade < 8
+order by grade desc;
