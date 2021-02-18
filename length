@@ -1,0 +1,14 @@
+
+select * from
+(select city, length(city) from station s,
+(select min(length(city)) min_length from station) t
+where length(city) = t.min_length 
+order by city asc)
+where rownum = 1
+union all
+select * from
+(select city, length(city) from station s,
+(select max(length(city)) max_length from station) t
+where length(city) = t.max_length 
+order by city asc)
+where rownum = 1;
