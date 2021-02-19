@@ -1,0 +1,15 @@
+set serveroutput on;
+declare
+median number(5);
+j number(5);
+begin
+j:=1;
+select count(id)/2 into median from station;
+for i in (select lat_n from station order by lat_n) loop
+if j = median then
+dbms_output.put_line(round(i.lat_n,4));
+end if;
+j:=j+1;
+end loop;
+end;
+/
