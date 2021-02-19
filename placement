@@ -1,0 +1,7 @@
+select name from
+(select s.id, name, p1.salary theirs, f.id, p2.salary friend 
+from students s, friends f, packages p1, packages p2
+where s.id = p1.id and s.id = f.id
+and f.friend_id = p2.id)
+where theirs < friend
+order by friend;
