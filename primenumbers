@@ -1,0 +1,27 @@
+set serveroutput on;
+declare
+i number(2);
+temp number(4);
+begin
+for i in (WITH x AS(
+    SELECT level+1 x
+    FROM dual
+    CONNECT BY LEVEL <= 999
+)
+SELECT x.x
+FROM x
+WHERE NOT EXISTS (
+  SELECT 1 FROM x y
+  WHERE x.x > y.x AND remainder( x.x, y.x) = 0
+)) loop
+if (i.x = 997) then
+temp := i.x;
+exit;
+end if;
+dbms_output.put(i.x||'&');
+
+end loop;
+dbms_output.put(temp);
+dbms_output.new_line;
+end;
+/
