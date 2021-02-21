@@ -1,0 +1,8 @@
+select n, 
+case 
+when (select p from bst where n = b.n) is null then 'Root'
+when (select count(*) from bst where p = b.n) > 1 then 'Inner'
+else 'Leaf'
+end
+from bst b 
+order by n;

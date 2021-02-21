@@ -1,0 +1,11 @@
+select contest_id, hacker_id, name, sum(total_submissions), sum(total_accepted_submissions), sum(total_views), sum(total_unique_views) from
+(select c.contest_id, c.hacker_id, c.name, c1.challenge_id, total_views,total_unique_views,total_submissions, total_accepted_submissions from contests c,
+colleges co, challenges c1,
+(select challenge_id, total_submissions,total_accepted_submissions,0 as total_views,0 
+as total_unique_views from Submission_Stats 
+union all 
+select challenge_id, 0,0,total_views,total_unique_views from View_Stats) stats
+where c.contest_id = co.contest_id and co.college_id = c1.college_id and c1.challenge_id = stats.challenge_id)
+group by contest_id, hacker_id, name
+having sum(total_submissions) !=0 and sum(total_accepted_submissions)!=0 and sum(total_views) !=0 and sum(total_unique_views) != 0
+order by contest_id;

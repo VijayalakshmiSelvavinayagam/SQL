@@ -1,0 +1,14 @@
+set serveroutput on;
+declare
+a float;
+b float;
+c float;
+d float;
+begin
+select min(lat_n) into a from station;
+select min(long_w) into b from station;
+select max(lat_n) into c from station;
+select max(long_w) into d from station;
+dbms_output.put_line(round(c-a+d-b,4));
+end;
+/

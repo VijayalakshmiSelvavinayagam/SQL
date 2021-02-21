@@ -1,0 +1,15 @@
+set serveroutput on;
+declare
+i number(2);
+j number(2);
+begin
+j:=20;
+while j> 0 loop
+for i in 1..j loop
+dbms_output.put('* ');
+end loop;
+dbms_output.new_line;
+j:=j-1;
+end loop;
+end;
+/
